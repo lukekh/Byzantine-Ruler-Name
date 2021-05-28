@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # All of the Byzantine Emperor names live here
-url = 'https://en.wikipedia.org/wiki/List_of_Byzantine_emperors'
+url = 'https://en.wikipedia.org/w/index.php?title=List_of_Byzantine_emperors&oldid=1007718930'
 
 # Pull the raw html from this page
 with requests.Session() as s:

@@ -5,7 +5,7 @@ https://towardsdatascience.com/generating-pok%C3%A9mon-names-using-rnns-f4100314
 
 # All the modelling stuff
 from keras.callbacks import LambdaCallback
-from keras.layers import Dense, LSTM
+from keras.layers import Dense, LSTM, TimeDistributed, LayerNormalization
 from keras import Sequential
 import numpy as np
 
@@ -80,9 +80,9 @@ char_dim = len(char_to_index)
 
 # Define model
 model = Sequential()
-model.add(LSTM(64, input_shape=(max_char, char_dim), return_sequences=True, recurrent_dropout=0.25))
-model.add(LSTM(64, input_shape=(max_char, char_dim), return_sequences=True, recurrent_dropout=0.25))
-model.add(Dense(char_dim, activation='softmax'))
+model.add(LSTM(128, input_shape=(max_char, char_dim), return_sequences=True, recurrent_dropout=0.5))
+model.add(TimeDistributed(LayerNormalization()))
+model.add(TimeDistributed(Dense(char_dim, activation='softmax')))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 
 
@@ -145,7 +145,7 @@ loss = LambdaCallback(on_epoch_end=generate_loss)
 if __name__ == "__main__":
 
     # train model
-    model.fit(X, Y, batch_size=64, epochs=6000, callbacks=[name_generator, loss], verbose=0)
+    model.fit(X, Y, batch_size=64, epochs=2000, callbacks=[name_generator, loss], verbose=0)
 
     # Save model
     model.save('ByzantineRNN')
