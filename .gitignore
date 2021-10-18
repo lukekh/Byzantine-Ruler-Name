@@ -127,3 +127,19 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pycharm files
+.idea/
+
+# Model files
+ByzantineRNN/
+GreekByzantineRNN/
+Models/
+obj/
+SvA/
+**/*.h5
+
+# Presentation files
+Presentation/
+Tapmaps/
+
